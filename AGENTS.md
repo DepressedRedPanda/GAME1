@@ -1,3 +1,5 @@
+> **GAME1 current authority:** Read `docs/UNIFIED_GAME_ARCHITECTURE.md` first. User authorized selectively incorporating all three old attempts and cutting incompatible code. GAME1 is the canonical repository; Blueprint-first on UE 5.8.4; Hollowreach source under `Research/Hollowreach/` is design reference, not a compiled module. Do not claim real UE editor tests without evidence.
+
 # GAME / Heavy Mettle — shared rules for every AI agent
 
 Read `docs/GAME_CONSOLIDATION.md`, `docs/CREATIVE_DIRECTION.md`, `docs/QUESTS.md`, `docs/BLUEPRINT_BUILD.md`, and `data/balance.json` before modifying gameplay. Target **Unreal Engine 5.8.4**, local project name **ManOfMettle**, and eventual GitHub repo name **GAME**.
