@@ -1,0 +1,23 @@
+# Unreal Engine generated data
+Binaries/
+Build/
+DerivedDataCache/
+DerivedDataCacheServer/
+Intermediate/
+Saved/
+.vs/
+.vscode/
+.idea/
+__pycache__/
+*.pyc
+*.sln
+*.suo
+*.user
+*.log
+Autosaves/
+.DS_Store
+
+# Do NOT ignore *.uasset or *.umap — tracked by Git LFS in .gitattributes
+# Do not commit secrets, proprietary platform SDKs, or files without redistribution rights
+.env
+.env.*
