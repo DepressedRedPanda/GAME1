@@ -1,27 +1,54 @@
-# GAME1 — Heavy Mettle (Unreal Engine 5.8.4)
+# GAME1
 
-**Canonical destination:** GAME1. **One playable game; preserve every predecessor as source and historical reference.** Local Unreal project: `ManOfMettle` (`C:\UnrealProjects\ManOfMettle`).
+This repository is the canonical home for the merged game project: one design, one production direction, one repository, and one playable goal.
 
-A grounded alien-frontier spaghetti western starring a human-looking amnesiac android. Blueprints-first runtime, with Unreal Editor Python for map and asset generation. Windows editor/PIE is the immediate test target; controller-first design supports a possible future authorized console port.
+Project direction
+- Unified game: Heavy Mettle
+- Engine target: Unreal Engine 5.8.4 and newer stable 5.8.x builds
+- Design goal: a playable third-person action RPG with traversal, melee, ranged combat, questing, progression, and a grounded frontier setting
+- Repository rule: preserve legacy attempts as archive/reference, not as active gameplay branches
 
-## Workspaces
+What was merged
+- attempt-two: practical playable-first prototype work, docs, scripts, and level-generation tools
+- Heavy-Mettle / older UE 5.5 prototype work: blueprint-first movement, combat, and beginner setup guidance
+- The-Game: larger progression, save, and world-systems ideas from Hollowreach/Veil of Ash
 
-- `Scripts/`, `data/`, `docs/`: active Heavy Mettle design, tuning, scripting and milestones imported from `attempt-two`.
-- `Legacy/attempt-two/`: reference copy of the older README, with full original history retained in the source repository.
-- `Legacy/Heavy-Mettle-55/`: preserved scripts, design and beginner tutorials from the Unreal 5.5 iteration.
-- `Legacy/The-Game/`: **pending private-only preservation** of the Hollowreach / Veil of Ash source, architecture, saves and tests. Do not publicly republish a private repository without changing GAME1 to private first.
-- `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`: shared AI workflow.
+Final merge approach
+- One canonical game loop
+- One player character and one GameMode
+- One progression and save chain
+- Multiple prior concepts preserved under Legacy/ and referenced only when needed
+- Old names become lore, districts, factions, and quest arcs, not duplicate active campaigns
 
-## Real build status
+The core game
+- Human-looking android protagonist with amnesia and morally messy jobs
+- lived-in alien frontier / space western tone
+- third-person shooting and melee combat
+- climbable vertical spaces and ranged enemy pressure
+- crafting, loot, XP, faction pressure, and mission structure
+- controller-first design with strong UE Enhanced Input support
 
-The repository contains text guidance and editor scripts, **not yet a verified playable Unreal project**. The creator's locally generated `ManOfMettle` `.uproject`, `Config/` and binary `Content/` must be safely imported and committed with Git LFS. The older design docs may still mention 5.8.3/Combat templates; verify the real local template and use 5.8.4 as the target, rather than replacing working assets.
+AI workflow
+- ChatGPT: high-level design, system integration, and feature planning
+- Claude: implementation, scripts, PRs, docs, and engineering work
+- Gemini: alternative design review, narrative consistency, and balancing sanity checks
+- GitHub: source-of-truth project management, branch flow, issue tracking, and PR review
 
-## First playable milestone
+Repository structure
+- docs/ — active design, consolidation, and build guidance
+- Scripts/ — Unreal Editor Python tools and validation helpers
+- data/ — tuning, item, quest, and balance tables
+- Legacy/ — preserved source material from prior attempts
+- AGENTS.md — shared rules for all AI agents
+- CLAUDE.md — implementation-specific instructions
+- GEMINI.md — design-review instructions
+- DESIGN.md — gameplay system plan
+- ROADMAP.md — short-term milestone plan
 
-Cinder's Rest → Oren Bale → Missing Cells → Old Relay → negotiate/sneak/fight → return, get paid, save and reload. Start with tested movement and free-aim pistol, add an enemy, then gradually integrate sword and quest persistence.
+The mandate
+This repo is not a collection of disconnected prototypes. It is the unified production project for the final game. The earlier repos remain in GitHub history and in Legacy/ as preserved reference, but the active project moves forward as one coherent game.
 
-## Preservation and merging
-
-Do not delete the three source repositories. Preserve all material by importing them into separate legacy namespaces *before* selectively adapting useful systems (quests, inventory, exploration, narrative flags, combat, saves) to one canonical runtime. `The-Game` is private; protect the destination first.
-
-For specifics, read `docs/GAME_CONSOLIDATION.md` and `AGENTS.md`. **Do not mistake copied scripts or AI-authored plans for tested Unreal gameplay.**
+See also
+- docs/GAME_CONSOLIDATION.md
+- docs/MASTER_GAME_PLAN.md
+- docs/LEGACY_ARCHIVE.md
