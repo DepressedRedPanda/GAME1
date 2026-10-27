@@ -1,3 +1,5 @@
+> **GAME1 current authority:** Read `docs/UNIFIED_GAME_ARCHITECTURE.md` first. User authorized selectively incorporating all three old attempts and cutting incompatible code. GAME1 is the canonical repository; Blueprint-first on UE 5.8.4; Hollowreach source under `Research/Hollowreach/` is design reference, not a compiled module. Do not claim real UE editor tests without evidence.
+
 > **Consolidation override (UE 5.8.4):** Read [AGENTS.md](../../AGENTS.md) and [docs/GAME_CONSOLIDATION.md](../../docs/GAME_CONSOLIDATION.md) first. Earlier 5.8.3, Combat-template, and standalone HeavyMettle instructions below are historical until verified against the actual local ManOfMettle project. Source repos are preserved; do not merge Hollowreach C++ into active runtime.
 
 # Copilot: Heavy Mettle
