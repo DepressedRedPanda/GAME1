@@ -1,7 +1,9 @@
+> **Destination correction:** GAME1 is the canonical repository. As of this commit GAME1 is publicly visible; do not import the private The-Game contents until the destination is made private. The archived directories are incomplete until verified against the full Git trees.
+
 # GAME — consolidation and migration plan (UE 5.8.4)
 
 ## Decision
-One shipping game: **Heavy Mettle**, a human-looking amnesiac android taking morally complicated jobs in a lived-in alien frontier. One repository: **GAME** (target name; not yet created). One Unreal project: **ManOfMettle** (the local project name the creator has already chosen). One canonical gameplay runtime; **Blueprint-first**, Editor Python allowed, no imported legacy gameplay C++ by default.
+One shipping game: **Heavy Mettle**, a human-looking amnesiac android taking morally complicated jobs in a lived-in alien frontier. One repository: **GAME1** (created, canonical destination). One Unreal project: **ManOfMettle** (the local project name the creator has already chosen). One canonical gameplay runtime; **Blueprint-first**, Editor Python allowed, no imported legacy gameplay C++ by default.
 
 Latest verified engine baseline: **Unreal Engine 5.8.4** (October 20, 2026 hotfix). Use 5.8.x serialization only after a project backup. Do not change versions per feature branch.
 
@@ -14,7 +16,7 @@ Latest verified engine baseline: **Unreal Engine 5.8.4** (October 20, 2026 hotfi
 
 ## Canonical layout
 ```text
-GAME/
+GAME1/
   ManOfMettle.uproject
   Config/
   Content/                 # only local/editor-generated or rights-cleared UE assets
@@ -63,9 +65,9 @@ Examine Hollowreach's save schema, inventory, quests, dialog triggers, clock, re
 - CI can lint text/scripts, check LFS pointers and file hygiene. **A green CI result is not proof of UE compilation, PIE, packaged launch or actual platform compatibility.**
 
 ## Cutover procedure (not yet executed)
-1. Make a private `DepressedRedPanda/GAME` repository (or rename after backup) and ensure linked GitHub tools can access it.
+1. Make a private `DepressedRedPanda/GAME1` repository (or rename after backup) and ensure linked GitHub tools can access it.
 2. Mirror/copy all three repository histories/trees into non-overlapping source namespaces with git subtree or recorded immutable refs; keep a provenance manifest with source commit IDs.
 3. Promote `attempt-two` tools/docs/data to active directories, resolving overlapping docs manually.
-4. Check out a backup of the locally working `ManOfMettle` Unreal project and add its real `.uproject`, `Config`, `Content` to GAME. Install/configure Git LFS before the first binary asset commit.
+4. Check out a backup of the locally working `ManOfMettle` Unreal project and add its real `.uproject`, `Config`, `Content` to GAME1. Install/configure Git LFS before the first binary asset commit.
 5. Standardize 5.8.4 in active guides; mark historical guidance by original version. Keep a test matrix and migrate feature-by-feature through PRs.
-6. Archive source repositories only after content and history checks, successful UE editor smoke test and successful clone/LFS checkout from GAME. Never delete source repos to complete the merge.
+6. Archive source repositories only after content and history checks, successful UE editor smoke test and successful clone/LFS checkout from GAME1. Never delete source repos to complete the merge.
