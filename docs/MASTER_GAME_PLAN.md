@@ -45,7 +45,7 @@ The original repositories remain intact and are preserved as historical/legacy r
 
 Legacy content should live in:
 - Legacy/
-- docs/LEGACY_ARCHIVE.md
+- Legacy/README.md
 - git history and original repository references
 
 This protects the work while keeping the active project focused.
@@ -87,4 +87,4 @@ This split helps each tool do what it does best while keeping one shared directi
 - ROADMAP.md
 - docs/GAME_CONSOLIDATION.md
 - docs/MASTER_GAME_PLAN.md
-- docs/LEGACY_ARCHIVE.md
+- Legacy/README.md

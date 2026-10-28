@@ -1,0 +1,519 @@
+{
+  "_about": "Blueprint scaffolds for GAME1, read by Scripts/create_blueprint_scaffolds.py (in Unreal) and Scripts/validate_repo.py (in CI). Names follow docs/UNIFIED_GAME_ARCHITECTURE.md. 'owner' = the one system this Blueprint is responsible for; the validator refuses two Blueprints owning the same system. A default of {\"balance\": \"a.b\"} is read from data/balance.json.",
+  "root": "/Game/HeavyMettle/Blueprints",
+  "scaffolds": [
+    {
+      "name": "BPI_HM_Interactable",
+      "owner": "interaction",
+      "kind": "interface",
+      "functions": [
+        "Interact",
+        "CanInteract",
+        "GetInteractPrompt"
+      ],
+      "manual": [
+        "Open BPI_HM_Interactable. Select Interact: add Input 'Interactor' (Actor > Object Reference).",
+        "Select CanInteract: add Input 'Interactor' (Actor) and Output 'bCanInteract' (Boolean).",
+        "Select GetInteractPrompt: add Output 'Prompt' (Text). Compile, Save."
+      ]
+    },
+    {
+      "name": "BP_HM_GameMode",
+      "owner": "game_mode",
+      "parent": "template:GameMode",
+      "fallback_parent": "engine:GameModeBase",
+      "manual": [
+        "Components panel > Add > BP_HM_SaveManager.",
+        "Only use this GameMode in World Settings once BP_HM_Android spawns and moves in PIE."
+      ]
+    },
+    {
+      "name": "BP_HM_Android",
+      "owner": "player",
+      "parent": "template:Character",
+      "fallback_parent": null,
+      "variables": [
+        {
+          "name": "MagazineAmmo",
+          "type": "int",
+          "default": {
+            "balance": "combat.magazine"
+          }
+        },
+        {
+          "name": "MagazineSize",
+          "type": "int",
+          "default": {
+            "balance": "combat.magazine"
+          }
+        },
+        {
+          "name": "ReserveAmmo",
+          "type": "int",
+          "default": {
+            "balance": "combat.reserveAmmo"
+          }
+        },
+        {
+          "name": "PistolDamage",
+          "type": "real",
+          "default": {
+            "balance": "combat.pistolDamage"
+          }
+        },
+        {
+          "name": "FireCooldownSeconds",
+          "type": "real",
+          "default": {
+            "balance": "combat.fireCooldownSeconds"
+          }
+        },
+        {
+          "name": "bCanFire",
+          "type": "bool",
+          "default": true
+        },
+        {
+          "name": "bIsAiming",
+          "type": "bool",
+          "default": false
+        },
+        {
+          "name": "LockOnRangeCm",
+          "type": "real",
+          "default": {
+            "balance": "player.lockOnRangeCm"
+          }
+        },
+        {
+          "name": "LockedTarget",
+          "type": "object:Actor"
+        },
+        {
+          "name": "InteractRangeCm",
+          "type": "real",
+          "default": {
+            "balance": "player.interactRangeCm"
+          }
+        }
+      ],
+      "functions": [
+        "FirePistol",
+        "Reload",
+        "TryLockOn",
+        "ClearLockOn",
+        "TryInteract"
+      ],
+      "manual": [
+        "Components panel > Add: BP_HM_StatsComponent, BP_HM_InventoryComponent, BP_HM_QuestComponent, BP_HM_FactionComponent.",
+        "Class Defaults: keep the template's movement, camera and input. This Blueprint ADDS to the template; it does not replace it."
+      ]
+    },
+    {
+      "name": "BP_HM_StatsComponent",
+      "owner": "stats",
+      "parent": "engine:ActorComponent",
+      "variables": [
+        {
+          "name": "MaxHealth",
+          "type": "real",
+          "default": {
+            "balance": "player.baseHealth"
+          }
+        },
+        {
+          "name": "Health",
+          "type": "real",
+          "default": {
+            "balance": "player.baseHealth"
+          }
+        },
+        {
+          "name": "MaxStamina",
+          "type": "real",
+          "default": {
+            "balance": "player.baseStamina"
+          }
+        },
+        {
+          "name": "Stamina",
+          "type": "real",
+          "default": {
+            "balance": "player.baseStamina"
+          }
+        },
+        {
+          "name": "MaxBattery",
+          "type": "real",
+          "default": {
+            "balance": "player.baseBattery"
+          }
+        },
+        {
+          "name": "Battery",
+          "type": "real",
+          "default": {
+            "balance": "player.baseBattery"
+          }
+        },
+        {
+          "name": "XP",
+          "type": "int",
+          "default": 0
+        },
+        {
+          "name": "Level",
+          "type": "int",
+          "default": 1
+        },
+        {
+          "name": "bIsDead",
+          "type": "bool",
+          "default": false
+        }
+      ],
+      "functions": [
+        "ApplyDamage",
+        "SpendStamina",
+        "RestoreBattery",
+        "AddExperience"
+      ],
+      "manual": [
+        "My Blueprint > Event Dispatchers > + : OnHealthChanged (inputs NewHealth Float, MaxHealth Float) and OnDied (input Killer Actor).",
+        "Class Defaults: untick 'Start with Tick Enabled'. Stamina regen uses a looping Timer started in SpendStamina, not Tick.",
+        "Enemies use this same component (set MaxHealth/Health on the enemy's component) so there is one damage path."
+      ]
+    },
+    {
+      "name": "BP_HM_InventoryComponent",
+      "owner": "inventory",
+      "parent": "engine:ActorComponent",
+      "variables": [
+        {
+          "name": "Items",
+          "type": "map:name:int"
+        },
+        {
+          "name": "Chits",
+          "type": "int",
+          "default": 0
+        },
+        {
+          "name": "MaxSlots",
+          "type": "int",
+          "default": {
+            "balance": "player.inventorySlots"
+          }
+        }
+      ],
+      "functions": [
+        "AddItem",
+        "RemoveItem",
+        "GetItemCount",
+        "HasItems",
+        "CraftRecipe"
+      ],
+      "manual": [
+        "Event Dispatcher OnInventoryChanged (input ItemID Name, NewCount Integer).",
+        "Untick 'Start with Tick Enabled'."
+      ]
+    },
+    {
+      "name": "BP_HM_QuestComponent",
+      "owner": "quest",
+      "parent": "engine:ActorComponent",
+      "variables": [
+        {
+          "name": "QuestStages",
+          "type": "map:name:int"
+        },
+        {
+          "name": "QuestFlags",
+          "type": "set:name"
+        },
+        {
+          "name": "CompletedQuests",
+          "type": "set:name"
+        },
+        {
+          "name": "GrantedRewards",
+          "type": "set:name"
+        }
+      ],
+      "functions": [
+        "StartQuest",
+        "SetStage",
+        "GetStage",
+        "SetFlag",
+        "HasFlag",
+        "CompleteQuest",
+        "GrantRewardOnce"
+      ],
+      "manual": [
+        "Event Dispatcher OnQuestUpdated (inputs QuestID Name, Stage Integer).",
+        "Untick 'Start with Tick Enabled'. Quests change only through these functions, called from BPI_HM_Interactable actors and trigger volumes."
+      ]
+    },
+    {
+      "name": "BP_HM_FactionComponent",
+      "owner": "faction",
+      "parent": "engine:ActorComponent",
+      "variables": [
+        {
+          "name": "Reputation",
+          "type": "map:name:int"
+        }
+      ],
+      "functions": [
+        "AdjustReputation",
+        "GetReputation"
+      ],
+      "manual": [
+        "Untick 'Start with Tick Enabled'."
+      ]
+    },
+    {
+      "name": "BP_HM_SaveGame",
+      "owner": "save_data",
+      "parent": "engine:SaveGame",
+      "variables": [
+        {
+          "name": "SaveVersion",
+          "type": "int",
+          "default": 1
+        },
+        {
+          "name": "PlayerTransform",
+          "type": "struct:Transform"
+        },
+        {
+          "name": "Health",
+          "type": "real"
+        },
+        {
+          "name": "Stamina",
+          "type": "real"
+        },
+        {
+          "name": "Battery",
+          "type": "real"
+        },
+        {
+          "name": "XP",
+          "type": "int"
+        },
+        {
+          "name": "Level",
+          "type": "int"
+        },
+        {
+          "name": "Chits",
+          "type": "int"
+        },
+        {
+          "name": "Items",
+          "type": "map:name:int"
+        },
+        {
+          "name": "QuestStages",
+          "type": "map:name:int"
+        },
+        {
+          "name": "QuestFlags",
+          "type": "set:name"
+        },
+        {
+          "name": "CompletedQuests",
+          "type": "set:name"
+        },
+        {
+          "name": "GrantedRewards",
+          "type": "set:name"
+        },
+        {
+          "name": "Reputation",
+          "type": "map:name:int"
+        },
+        {
+          "name": "ActivatedCheckpoints",
+          "type": "set:name"
+        },
+        {
+          "name": "CollectedPickups",
+          "type": "set:name"
+        }
+      ]
+    },
+    {
+      "name": "BP_HM_SaveManager",
+      "owner": "save_manager",
+      "parent": "engine:ActorComponent",
+      "variables": [
+        {
+          "name": "SlotName",
+          "type": "string",
+          "default": "HM_Slot0"
+        },
+        {
+          "name": "UserIndex",
+          "type": "int",
+          "default": 0
+        },
+        {
+          "name": "CurrentSaveVersion",
+          "type": "int",
+          "default": 1
+        }
+      ],
+      "functions": [
+        "SaveToSlot",
+        "LoadFromSlot",
+        "HasSave"
+      ],
+      "manual": [
+        "Untick 'Start with Tick Enabled'. Only this component calls Save Game to Slot / Load Game from Slot."
+      ]
+    },
+    {
+      "name": "BP_HM_Enemy",
+      "owner": "enemy",
+      "parent": "template:Enemy",
+      "fallback_parent": "engine:Character",
+      "variables": [
+        {
+          "name": "EnemyType",
+          "type": "name",
+          "default": "Bandit"
+        },
+        {
+          "name": "StartingHealth",
+          "type": "real",
+          "default": {
+            "balance": "combat.banditHP"
+          }
+        },
+        {
+          "name": "XPReward",
+          "type": "int",
+          "default": {
+            "balance": "combat.banditXP"
+          }
+        },
+        {
+          "name": "bAlerted",
+          "type": "bool",
+          "default": false
+        }
+      ],
+      "functions": [
+        "OnSeePlayer",
+        "OnDied"
+      ],
+      "manual": [
+        "Components > Add BP_HM_StatsComponent; on BeginPlay set its MaxHealth and Health to StartingHealth.",
+        "Bind the Stats component's OnDied to OnDied (award XPReward once). Use AIPerception events, not Tick."
+      ]
+    },
+    {
+      "name": "BP_HM_QuestGiver",
+      "owner": null,
+      "parent": "engine:Actor",
+      "variables": [
+        {
+          "name": "NPCName",
+          "type": "text"
+        },
+        {
+          "name": "QuestID",
+          "type": "name",
+          "default": "Q_MISSING_CELLS"
+        }
+      ],
+      "manual": [
+        "Class Settings > Implemented Interfaces > Add BPI_HM_Interactable."
+      ]
+    },
+    {
+      "name": "BP_HM_QuestTrigger",
+      "owner": null,
+      "parent": "engine:Actor",
+      "variables": [
+        {
+          "name": "QuestID",
+          "type": "name",
+          "default": "Q_MISSING_CELLS"
+        },
+        {
+          "name": "RequiredStage",
+          "type": "int",
+          "default": 10
+        },
+        {
+          "name": "NewStage",
+          "type": "int",
+          "default": 20
+        },
+        {
+          "name": "FlagToSet",
+          "type": "name"
+        },
+        {
+          "name": "bTriggerOnce",
+          "type": "bool",
+          "default": true
+        }
+      ],
+      "functions": [
+        "TryAdvanceQuest"
+      ],
+      "manual": [
+        "Add a Box Collision component (Collision Preset: Trigger). On Component Begin Overlap: if the other actor is the player, call TryAdvanceQuest. One of these per quest beat; set QuestID/RequiredStage/NewStage per placement in the level, no new Blueprint per step."
+      ]
+    },
+    {
+      "name": "BP_HM_LootPickup",
+      "owner": null,
+      "parent": "engine:Actor",
+      "variables": [
+        {
+          "name": "ItemID",
+          "type": "name"
+        },
+        {
+          "name": "Quantity",
+          "type": "int",
+          "default": 1
+        },
+        {
+          "name": "PersistentID",
+          "type": "name"
+        }
+      ],
+      "manual": [
+        "Class Settings > Implemented Interfaces > Add BPI_HM_Interactable. Give each placed pickup a unique PersistentID so the save knows it was taken."
+      ]
+    },
+    {
+      "name": "BP_HM_CraftingBench",
+      "owner": null,
+      "parent": "engine:Actor",
+      "variables": [
+        {
+          "name": "BenchID",
+          "type": "name"
+        }
+      ],
+      "manual": [
+        "Class Settings > Implemented Interfaces > Add BPI_HM_Interactable. Interact calls the player's BP_HM_InventoryComponent.CraftRecipe."
+      ]
+    }
+  ],
+  "legacy_names": {
+    "BP_HM_Stats": "BP_HM_StatsComponent",
+    "BP_HM_Inventory": "BP_HM_InventoryComponent",
+    "BP_HM_QuestTracker": "BP_HM_QuestComponent",
+    "BP_HM_Combat": "BP_HM_Android (combat variables live on the player)",
+    "BP_HM_Bandit": "BP_HM_Enemy (EnemyType = Bandit)",
+    "BP_PlayerCharacter": "BP_HM_Android"
+  }
+}

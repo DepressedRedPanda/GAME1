@@ -1,3 +1,5 @@
+> **Names updated 2026-10-27** to match [UNIFIED_GAME_ARCHITECTURE.md](UNIFIED_GAME_ARCHITECTURE.md). `Scripts/create_blueprint_scaffolds.py` now creates: `BP_HM_Stats` → **BP_HM_StatsComponent**, `BP_HM_Inventory` → **BP_HM_InventoryComponent**, `BP_HM_QuestTracker` → **BP_HM_QuestComponent** (generic stages/flags, no quest-specific booleans), `BP_HM_Combat` → variables on **BP_HM_Android**, `BP_HM_Bandit` → **BP_HM_Enemy**. BP_HM_Android and BP_HM_GameMode are made as *children* of your template classes rather than duplicates. Quest flow: [QUEST_INTERACTION_FLOW.md](QUEST_INTERACTION_FLOW.md). The Combat-template steps below are historical until P0 records which template you have.
+
 # Blueprint implementation guide — HEAVY METTLE
 Engine baseline: UE 5.8.3 **Third Person > Combat** variant (Blueprint).
 This is an implementation specification, NOT a claim that these nodes are already wired. Editor Python creates map/scaffolds, while Gameplay Blueprints must be edited, compiled and PIE-tested in a running editor. Keep the original Combat template working during each integration.
