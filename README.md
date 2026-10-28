@@ -2,6 +2,12 @@
 
 This repository is the canonical home for the merged game project: one design, one production direction, one repository, and one playable goal.
 
+Current production focus
+- Build the smallest valid slice before expanding scope.
+- Active target: movement, camera, climbing, one melee loop, one ranged weapon, one enemy type, and one vertical encounter map.
+- Keep the active project focused on a single playable loop instead of multiple parallel systems.
+- Preserve older attempts only as archive/reference; they are not active gameplay.
+
 Project direction
 - Unified game: Heavy Mettle
 - Engine target: Unreal Engine 5.8.4 and newer stable 5.8.x builds
