@@ -57,4 +57,4 @@ This repo is not a collection of disconnected prototypes. It is the unified prod
 See also
 - docs/GAME_CONSOLIDATION.md
 - docs/MASTER_GAME_PLAN.md
-- docs/LEGACY_ARCHIVE.md
+- Legacy/README.md

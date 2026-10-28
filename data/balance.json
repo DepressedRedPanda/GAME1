@@ -9,7 +9,9 @@
     "walkSpeed": 300,
     "sprintSpeed": 550,
     "lockOnRangeCm": 350,
-    "mantleMaxHeightCm": 220
+    "mantleMaxHeightCm": 220,
+    "interactRangeCm": 250,
+    "inventorySlots": 20
   },
   "combat": {
     "pistolDamage": 20,
@@ -21,7 +23,9 @@
     "parryWindowSeconds": 0.18,
     "guardStaminaPerSecond": 12,
     "banditHP": 70,
-    "banditXP": 20
+    "banditXP": 20,
+    "fireCooldownSeconds": 0.2,
+    "reserveAmmo": 24
   },
   "recipes": [
     {
